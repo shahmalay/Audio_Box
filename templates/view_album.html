@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+  <title>view_album</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+ <style>
+    .like{
+        display: block;
+        left: -20px;
+        position: relative;
+        top: -25px;
+      
+      }
+ </style>
+</head>
+<body style="color: white ;  background-color: #00644E; " >
+
+    
+
+    <br><br><h3 style="color:yellow;"><center>{{album['aname']}} ALBUM</center></h3><hr>
+        <center><div class="song_name" style="width:75%;" >
+          {% for song in album["song"] %}
+          <div class="list" align="left">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-music">
+            <path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M12 12H3"/><path d="M16 6H3"/>
+            <path d="M12 18H3"/></svg></a>
+
+            <span class="name" >
+              {{song["song_name"]}} ~ {% for artist in song["artist"] %}
+              {{ artist["username"]}} {% if not loop.last %} , {% endif %}
+              {% endfor %}</span>
+            
+            <div class="like" style="text-align:right; bottom:5px;" >
+              <a class="btn" href="/lyrics/{{song['song_name']}}/{{artist}}" role='button'>READ</a> </div>
+          </div><hr>
+          {% endfor %}</div></center>
+          
+
+</body>
+</html>

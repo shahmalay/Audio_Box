@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>artist List</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+    <br><div class ="jumbotron" style="text-align:center;"><h1 class="display-4">USER LIST</h1></div><hr>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ARTIST</th>
+        <th>SONGS</th>
+        <th>ALBUM</th>
+        <th>BLACKLIST</th>
+      </tr>
+    </thead>
+    <tbody>{% for artist in artists %}
+      <tr>
+        <td width="10%">{{artist["artist_id"]}}</td>
+        <td>{{artist["username"]}}</td>
+        <td>{% for song in artist["song"] %}
+        {{ song["song_name"]}} {% if not loop.last %} , {% endif %}{% endfor %}</td>
+        <td>{% for album in artist["album"] %}
+          {{ album["aname"]}} {% if not loop.last %} , {% endif %}{% endfor %}</td>
+
+        <td width="5%"><button type="button" class="btn btn-light balcklist"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ban"><circle cx="12" cy="12" r="10"/>
+          <path d="m4.9 4.9 14.2 14.2"/></svg></button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

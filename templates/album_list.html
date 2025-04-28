@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>album List</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+    }
+   
+    button:hover svg{
+      fill:red;
+    }
+  </style>
+</head>
+<body>
+  <br><div class ="jumbotron" style="text-align:center;"><h1 class="display-4">ALBUM LIST</h1></div><hr>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>BY ARTISTS</th>
+      <th>DELETE/FLAG</th>
+    </tr>
+  </thead>
+  <tbody>{% for album in album %}
+    <tr>
+      <td width="5%">{{album["album_id"]}}</td>
+      <td width="50%">{{album["aname"]}}</td>
+      <td width="30%"> {% for artist in album["artist"] %}
+        {{ artist["username"]}} {% if not loop.last %} , {% endif %}{% endfor %}</td>
+      
+      <td width="5%"><a type="button" href="/delete_album/{{album["album_id"]}}" class="btn btn-light delete" onclick="alert('YOU DELETED {{album["aname"]}} album')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
+        <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        <line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User List</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+    <br><div class ="jumbotron" style="text-align:center;"><h1 class="display-4">USER LIST</h1></div><hr>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>{% for user in users %}
+      <tr>
+        <td width="10%">{{user["userid"]}}</td>
+        <td>{{user["username"]}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

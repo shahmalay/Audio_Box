@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+  <title>user dashboard</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+ <style>
+
+.col-md-3{
+  text-align:center;
+}
+.btn{
+  width:95%;
+}
+
+input[type="search"] {
+  width: 620px;
+  padding: 5px;
+  left:10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-right: 10px;
+}
+.bi {
+  display: inline; /* Initially hide the button */
+  position: relative;
+  margin-right: 20px;
+}   
+
+.list {
+  text-align:left;
+  top:12px;
+  position:relative;
+  left:10px; 
+}
+.name{
+  left:10px;
+}
+.nav-item{
+  left:-5px;
+}
+.form-control{
+  width :70px;
+  position : relative;
+}
+.btn{
+  border:1px solid white;
+}
+.like{
+  display: block;
+  left: -20px;
+  position: relative;
+  top: -25px;
+
+}
+</style>
+
+</head>
+<body style="color: white ;  background-color: #00644E; " >
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height:85px; ">
+      <h3 style="color:black">Welcome To Audio-Box     </h3>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item"><form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" id="search-bar" type="search" placeholder="Search" aria-label="Search" ></li>
+
+          <li class="nav-item"><button class="btn btn-outline-success my-2 my-sm-0" id="search-btn"type="button">Search</button></li>
+        </form></li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/newartist/{{user}}" > BECOME ARTIST</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/">LOGOUT</a>
+        </li>
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-6"><br><br><h3><center>NEWLY ADDED MUSIC</center></h3><hr>
+        <div class="list">
+          {% for song in songs %}
+          <div class="song_name" align="left" id="song_name">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-music">
+            <path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M12 12H3"/><path d="M16 6H3"/>
+            <path d="M12 18H3"/></svg></a>
+
+              {{song["song_name"]}} ~ {% for artist in song["artist"] %}
+              {{ artist["username"]}} 
+              {% endfor %}  // {{song["date"]}}  {% if song["rating_sub"]!=0 %}// rating {{song["total_rating"]/song["rating_sub"]}} 
+              {% endif %} 
+
+            <div class="like" style=" left:525px;" >
+              <a class="btn" style="width: 70px;"href="/lyrics/{{song['song_name']}}/{{user}}" role='button'>READ</a> </div>
+          </div><hr>
+          {% endfor %}</div>
+          </div> 
+
+        <div class='col-md-3'><br><br><h3>PLAYLISTS</h3><hr>
+          <a class="btn btn-primary" href="/new_playlist/{{user}}" role="button" >
+          + NEW PLAYLIST </a><hr>{% for playlist in playlist %}
+          <a class="btn btn-primary" id="btn-primary" href="/view_playlist/{{user}}/{{playlist["name"]}}" role="button" >
+          {{playlist["name"]}} PLAYLIST</a>
+        <hr>{% endfor %}
+       </div>
+
+
+      <div class='col-md-3'><br><br><h3>ALBUMS</h3>
+        <hr>  {% for album in album %}  
+        <a class="btn btn-primary" id="btn-primary" href="/album/{{album['aname']}}/{{album['artist']}}" role="button" data-toggle="button" aria-pressed="false" autocomplete="off"   >
+          {{album['aname']}}~{% for artist in album['artist'] %}{{artist['username']}} {% endfor %}// {{album["agenre"]}}</a><hr>{% endfor %}</a>
+     
+<script>
+  const searchBar = document.getElementById('search-bar');
+  const searchBtn = document.getElementById('search-btn');
+  const songElements = document.querySelectorAll('.song_name');
+  const playlistElements = document.querySelectorAll('.btn-primary');
+  
+  searchBar.addEventListener('input', () => {
+    const searchTerm = searchBar.value.toLowerCase();
+  
+    songElements.forEach(element => {
+      const songName = element.textContent.toLowerCase();
+      element.style.display = songName.includes(searchTerm) ? 'block' : 'none';
+    });
+
+    playlistElements.forEach(element => {
+      const playlistName = element.textContent.toLowerCase();
+      element.style.display = playlistName.includes(searchTerm) ? 'block' : 'none';
+    });
+  });
+  
+  searchBtn.addEventListener('click', () => {
+    searchBar.focus();
+  });
+  
+</script>
+
+</body>
+
+</html>
